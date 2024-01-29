@@ -2,54 +2,85 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
+import { useApiService } from "../services/api";
 
 
 const Signup = () => {
-    const [fullName, setFullName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const navigate = useNavigate();
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-    const handleFullNameChange = (e) => {
-        setFullName(e.target.value);
-    };
+  const { post } = useApiService();
 
-    const handleEmailChange = (e) => {
-        setEmail(e.target.value);
-    };
+  const handleFullNameChange = (e) => {
+    setFullName(e.target.value);
+  };
 
-    const handlePasswordChange = (e) => {
-        setPassword(e.target.value);
-    };
-    const handleSignUp = async () => {
-        try {
-            const signupData = {
-                fullName: fullName,
-                email: email,
-                password: password,
-            };
-            const response = await axios.post("http://localhost:5200/auth/signup", signupData);
-            console.log("Signup successful:", response.data);
-            navigate("/");
-        } catch (error) {
-            console.error("Signup error:", error.response.data);
-        }
-    };
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
 
-    return (
-        <Container>
-            <Wrapper>
-                <Title>Welcome to streamer</Title>
-                <Input placeholder="full name" value={fullName} onChange={handleFullNameChange} />
-                <Input placeholder="email" value={email} onChange={handleEmailChange} />
-                <Input type="password" placeholder="password" value={password} onChange={handlePasswordChange} />
-                <Button onClick={handleSignUp}>Sign Up</Button>
-                <Link to="/login">
-                    <AccountText>Have an account? Login</AccountText>
-                </Link>
-            </Wrapper>
-        </Container>
-    );
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+  const handleSignUp = () => {
+  
+    if (email === "" || password === "") {
+      setErrorMessage("Please fill in all fields");
+      return;
+    }
+    // TODO: validate email and password
+    setIsLoading(true);
+
+    setErrorMessage("");
+    const signupData = {
+      name: fullName,
+      email: email,
+      password: password,
+    };
+    post("/auth/signup", signupData).then((response) => {
+      console.log(response);
+      if (response.status === 200 || response.status === 201) {
+        
+        // localStorage.setItem('token', response.data.token);
+
+        // TODO: CHANGE TO NAVIGATE
+        window.location.href = "/";
+      }
+      else {
+        setErrorMessage("error");
+      }
+    }).catch((error) => {
+      console.log(error);
+      setErrorMessage(error.response.data.message || "error");
+    }).finally(() => {
+      setIsLoading(false);
+
+    })
+  };
+
+  return (
+    <Container>
+      <Wrapper>
+        <Title>Welcome to streamer</Title>
+        <Input placeholder="full name" value={fullName} onChange={handleFullNameChange} />
+        <Input placeholder="email" value={email} onChange={handleEmailChange} />
+        <Input type="password" placeholder="password" value={password} onChange={handlePasswordChange} />
+        <div>
+          {errorMessage}{
+            isLoading ? "Loading....." : ""
+          }
+        </div>
+        <Button disabled={isLoading} onClick={handleSignUp}>Sign Up</Button>
+        <Link to="/login">
+          <AccountText>Have an account? Login</AccountText>
+        </Link>
+      </Wrapper>
+    </Container>
+  );
 };
 
 //STYLES FOR COMPONTENTS
