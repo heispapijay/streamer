@@ -3,6 +3,60 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Home, Whatshot, Subscriptions, MusicNote, SportsEsports, SportsFootball } from '@mui/icons-material';
 
+
+function Menu() {
+  return (
+    <Container>
+      <Wrapper>
+        <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+          <Logo>Streamer</Logo>
+        </Link>
+        <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+          <Item>
+            <Home />
+            Home
+          </Item></Link>
+        <Item>
+          <Whatshot />
+          Trending
+        </Item>
+        <Item>
+          <Subscriptions />
+          Subscriptions
+        </Item>
+
+        <Hr />
+        <Title>Best of Streamer</Title>
+        <Item>
+          <MusicNote />
+          Music
+        </Item>
+        <Item>
+          <SportsFootball />
+          Sports
+        </Item>
+
+        <Item>
+          <SportsEsports />
+          Gaming
+        </Item>
+      </Wrapper>
+      <Hr />
+      <Wrapper>
+        <Login>
+          Sign in to like videos, comment, and subscribe.
+          <Link to='login' style={{ textDecoration: "none", color: "inherit" }}>
+            <Button>
+              Sign in
+            </Button>
+          </Link>
+        </Login>
+      </Wrapper>
+    </Container>
+  )
+}
+
+// STYLES FOR COMPONENTS
 const Container = styled.div`
   flex: 1;
   background-color: #0f0f0f;
@@ -62,57 +116,5 @@ const Title = styled.h2`
   color: #aaaaaa;
   margin-bottom: 20px;
 `;
-
-function Menu() {
-  return (
-    <Container>
-      <Wrapper>
-        <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
-          <Logo>Streamer</Logo>
-        </Link>
-        <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
-          <Item>
-            <Home />
-            Home
-          </Item></Link>
-        <Item>
-          <Whatshot />
-          Trending
-        </Item>
-        <Item>
-          <Subscriptions />
-          Subscriptions
-        </Item>
-
-        <Hr />
-        <Title>Best of Streamer</Title>
-        <Item>
-          <MusicNote />
-          Music
-        </Item>
-        <Item>
-          <SportsFootball />
-          Sports
-        </Item>
-
-        <Item>
-          <SportsEsports />
-          Gaming
-        </Item>
-      </Wrapper>
-      <Hr />
-      <Wrapper>
-        <Login>
-          Sign in to like videos, comment, and subscribe.
-          <Link to='login' style={{ textDecoration: "none", color: "inherit" }}>
-            <Button>
-              Sign in
-            </Button>
-          </Link>
-        </Login>
-      </Wrapper>
-    </Container>
-  )
-}
 
 export default Menu

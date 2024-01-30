@@ -4,6 +4,32 @@ import styled from "styled-components";
 import profile from "../assets/12776d2a-368e-4586-a64e-70daa5243e54.jpg";
 import tumbnail from "../assets/A_hand_pointing_to_a_futuristic_technology.png";
 
+
+function Card({type}) {
+  return (
+    <Link to="/video/test" style={{ textDecoration: "none" }}>
+      <Container type={type}>
+        <Image
+          type={type}
+          src={tumbnail}
+          />
+        <Details type={type}>
+          <ChannelImage
+            type={type}
+            src={profile}
+          />
+          <Texts>
+            <Title>Test Video</Title>
+            <ChannelName>Jay's Channel</ChannelName>
+            <Info>3.1M views • 1 month ago</Info>
+          </Texts>
+        </Details>
+      </Container>
+    </Link>
+  )
+}
+
+// STYLES FOR COMPONENTS
 const Container = styled.div`
   width: ${(props) => props.type !== "sm" && "300px"};
   margin-bottom: ${(props) => (props.type === "sm" ? "10px" : "45px")};
@@ -54,29 +80,5 @@ const Info = styled.h3`
   color: #aaaaaa;
   margin: 0px;
 `;
-
-function Card({type}) {
-  return (
-    <Link to="/video/test" style={{ textDecoration: "none" }}>
-      <Container type={type}>
-        <Image
-          type={type}
-          src={tumbnail}
-          />
-        <Details type={type}>
-          <ChannelImage
-            type={type}
-            src={profile}
-          />
-          <Texts>
-            <Title>Test Video</Title>
-            <ChannelName>Jay's Channel</ChannelName>
-            <Info>3.1M views • 1 month ago</Info>
-          </Texts>
-        </Details>
-      </Container>
-    </Link>
-  )
-}
 
 export default Card;

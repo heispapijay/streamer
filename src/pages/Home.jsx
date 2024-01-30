@@ -22,4 +22,4 @@ const Container = styled.div`
   flex-wrap: wrap;
 `;
 
-export default Home
+export default Home;
