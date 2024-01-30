@@ -3,7 +3,24 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 
+function Navbar() {
+  return (
+    <Container>
+      <Wrapper>
+        <Search>
+          <Input type='text' placeholder='Search' />
+        </Search>
+        <Link to='login' style={{ textDecoration: 'none' }}>
+          <Button>
+            Sign In
+          </Button>
+        </Link>
+      </Wrapper>
+    </Container>
+  )
+}
 
+// STYLES FOR COMPONENTS
 const Container = styled.div`
   position: sticky;
   top: 0;
@@ -51,22 +68,5 @@ const Button = styled.button`
   align-items: center;
   gap: 5px;
 `;
-
-function Navbar() {
-  return (
-    <Container>
-      <Wrapper>
-        <Search>
-          <Input type='text' placeholder='Search' />
-        </Search>
-        <Link to='login' style={{ textDecoration: 'none' }}>
-          <Button>
-            Sign In
-          </Button>
-        </Link>
-      </Wrapper>
-    </Container>
-  )
-}
 
 export default Navbar;
